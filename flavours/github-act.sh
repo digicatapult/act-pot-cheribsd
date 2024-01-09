@@ -18,7 +18,7 @@ pkg64 ins -y git node bash
 # Install the runner
 curl -LO https://github.com/ChristopherHX/github-act-runner/releases/download/v0.6.7/binary-freebsd-arm.tar.gz
 tar -xvf binary-freebsd-arm.tar.gz github-act-runner
-cp github-act-runner /usr/local64/bin/github-act-runner
+cp github-act-runner /usr/local/bin/github-act-runner
 
 # Create the config directory
 mkdir /root/runner
