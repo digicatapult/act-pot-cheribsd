@@ -8,6 +8,26 @@ if [ "${RUNNER_FLAVOURS}" ] ; then
 	done
 fi
 
+DIR=
+BASEDIR="${POT_MOUNT_BASE}"bases/"${FREEBSD_VERSION}"
+if [ ! -e "${BASEDIR}" ]; then
+	pot create-base -r $FREEBSD_VERSION
+
+	echo Adding libraries to the $BASENAME pot
+	for DIR in lib64 lib64cb; do
+		cp -r /usr/"${DIR}" "${BASEDIR}"/usr/ 2>/dev/null
+	done
+
+	pot start -p $BASENAME
+
+	for PKG in pkg64 pkg64c pkg64cb; do
+		echo Bootstrapping $PKG
+		pot exec -p $BASENAME $PKG bootstrap -fy && $PKG update -f
+	done
+
+	pot stop -p $BASENAME
+fi
+
 mkdir -p ${RUNNER_CONFIG_DIRECTORY}
 cd ${RUNNER_CONFIG_DIRECTORY}
 

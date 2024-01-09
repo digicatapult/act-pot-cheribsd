@@ -15,4 +15,5 @@ fi
 # FIXME: We shouldn't be allowing anything that isn't allowed in a path
 # component here either.
 POTNAME=$(echo ${RUNNER_NAME} | sed 's/\./_/g')
+BASENAME=base-$(echo $FREEBSD_VERSION | sed 's/\./_/g')
 RUNNER_CONFIG_DIRECTORY=`pwd`/runners/${POTNAME}
