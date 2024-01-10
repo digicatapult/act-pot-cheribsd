@@ -6,7 +6,7 @@ cat /root/github-config
 VERSION=$(freebsd-version -u | sed -r 's/-.*//')
 # Configure the runner
 cd /root/runner
-GODEBUG="asyncpreemptoff=1" /usr/local/bin/github-act-runner configure \
+GODEBUG="asyncpreemptoff=1" /usr/local64/bin/github-act-runner configure \
 	--url ${GITHUB_URL} \
 	--token ${GITHUB_TOKEN} \
 	--name ${RUNNER_NAME} \

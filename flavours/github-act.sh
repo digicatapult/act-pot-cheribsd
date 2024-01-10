@@ -8,7 +8,6 @@ case $( . /etc/os-release; echo $NAME ) in
     ;&
     CheriBSD)
     echo skipped freebsd-update for CheriBSD
-    done
     ;;
 esac
 
@@ -27,6 +26,6 @@ mkdir /root/runner
 cat <<EOF > /root/ci.sh
 #!/bin/sh
 cd /root/runner
-github-act-runner run --once
+GODEBUG="asyncpreemptoff=1" github-act-runner run --once
 EOF
 chmod +x /root/ci.sh
