@@ -7,7 +7,7 @@
 
 . /etc/rc.subr
 
-PATH=$PATH:/usr/local/bin
+PATH=$PATH:/usr/local64/bin
 name="gh_actions"
 desc="GitHub Actions"
 procname="${name}"

@@ -32,6 +32,10 @@ install flavours/github-act ${FLAVOURS}
 install flavours/github-act.sh ${FLAVOURS}
 install flavours/github-act-configure.sh ${FLAVOURS}
 install flavours/github-act-import-config ${FLAVOURS}
-install run-actions-runner.sh /usr/local/bin/
+install run-actions-runner.sh /usr/local64/bin/
 install gh_actions /usr/local64/etc/rc.d/
-
+install jobs/scrub-pool.sh /etc/cron.d/scrub-pool.sh
+install jobs/clean-pots.sh /etc/cron.d/clean-pots.sh
+install jobs/restart-actions.sh /etc/cron.d/restart-actions.sh
+cat jobs/tabs >> crontab
+sysrc cron_enable="YES"
