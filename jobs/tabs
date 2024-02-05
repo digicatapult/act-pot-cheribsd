@@ -1,0 +1,4 @@
+* 9 */1 * * /sbin/zpool status -v
+* 12 */1 * * /etc/cron.d/scrub-pool.sh
+* */1 * * * /etc/cron.d/clean-pots.sh
+*/1 * * * * /etc/cron.d/restart-actions.sh

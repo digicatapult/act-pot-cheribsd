@@ -1,5 +1,19 @@
+CheriBSD
+========
+
+This repository has commits specific to CheriBSD, to execute
+self-hosted GitHub runners in ephemeral jails via pot, a BSD jail
+manager.
+It makes certain assumptions, that `GODEBUG="asyncpreemptoff=1"` is
+necessary to prevent kernel panics, owing to a known bug affecting the
+Go runtime on CheriBSD.
+It also copies the libraries for CheriBSD's various ABIs from the host
+to the release's base pot to ensure that `pkg64` and `pkg64cb` are
+useable on capability-aware systems like Morello.
+
+
 Wrapper scripts to run GitHub actions in a jail on FreeBSD
-==========================================================
+----------------------------------------------------------
 
 *DISCLAIMER*: This uses [a third-party implementation of the GitHub Actions protocol](https://github.com/ChristopherHX/github-act-runner) and is not officially supported by GitHub.
 
