@@ -10,7 +10,7 @@ fi
 # Generate a new GitHub Actions runner registration token for the organization
 TOKEN=$(curl -s -X POST -H "Authorization: token $GITHUB_PAT" \
                   -H "Accept: application/vnd.github+json" \
-                  "https://api.github.com/orgs/$GITHUB_ORG/actions/runners/registration-token" | jq -r .token)
+                  "https://api.github.com/orgs/$GITHUB_ORG/actions/runners/registration-token" | grep "token" | cut -d '"' -f 4)
 
 if [ "$TOKEN" = "null" ]; then
     echo "Failed to generate token. Check if your GITHUB_PAT is correct and has the required permissions."
