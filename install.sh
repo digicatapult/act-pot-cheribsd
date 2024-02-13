@@ -6,10 +6,20 @@ if [ ! -d ${FLAVOURS} ]; then
 	echo "Can't locate pot install"
 	exit 1
 fi
-DIR=
-BASEDIR="${POT_MOUNT_BASE}"bases/"${FREEBSD_VERSION}"
-echo Installing base ${FREEBSD_VERSION} pot to ${BASEDIR}
+
+BASENAME="base-"${FREEBSD_VERSION}
+BASEDIR="${POT_MOUNT_BASE}/bases/${BASENAME}/${FREEBSD_VERSION}"
+echo Creating base pot for ${FREEBSD_VERSION}
 if [ ! -e "${BASEDIR}" ]; then
+	mkdir -p /usr/local/share/freebsd/MANIFESTS/
+	ARCH=$(curl -s \
+		https://download.cheribsd.org/releases/arm64/aarch64c/ | \
+		grep -Eo "\w{1,}\.\w{1,}" | sort -u)
+	for RELEASE in $ARCH; do
+		curl -C - "https://download.cheribsd.org/releases/arm64/aarch64c/$RELEASE/ftp/MANIFEST" > \
+		/usr/local/share/freebsd/MANIFESTS/arm64-aarch64c-$RELEASE-RELEASE
+	done
+
 	pot create-base -r $FREEBSD_VERSION
 
 	echo Adding libraries to the $BASENAME pot

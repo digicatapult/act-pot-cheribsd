@@ -10,6 +10,10 @@ Go runtime on CheriBSD.
 It also copies the libraries for CheriBSD's various ABIs from the host
 to the release's base pot to ensure that `pkg64` and `pkg64cb` are
 useable on capability-aware systems like Morello.
+To install under CheriBSD 23.11, for instance:
+```shell
+POT_MOUNT_BASE=/opt/pot FREEBSD_VERSION=23.11 ./install.sh
+```
 
 
 Wrapper scripts to run GitHub actions in a jail on FreeBSD
