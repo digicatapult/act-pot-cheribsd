@@ -11,7 +11,11 @@ fi
 mkdir -p ${RUNNER_CONFIG_DIRECTORY}
 cd ${RUNNER_CONFIG_DIRECTORY}
 
-pot create -p ${POTNAME} -b ${FREEBSD_VERSION} -t single -f github-act ${EXTRA_FLAVOURS} -f github-act-configured
+pot create -p ${POTNAME} -b ${FREEBSD_VERSION} -t single \
+	-f github-act ${EXTRA_FLAVOURS} -f github-act-configured \
+	-N private-bridge -B bridge-${FREEBSD_VERSION} -i auto -S ipv4
+
+potnet etc-hosts -b bridge-${FREEBSD_VERSION} >> /etc/hosts
 
 echo
 echo Created pot:
