@@ -11,7 +11,18 @@ fi
 mkdir -p ${RUNNER_CONFIG_DIRECTORY}
 cd ${RUNNER_CONFIG_DIRECTORY}
 
-pot create -p ${POTNAME} -b ${FREEBSD_VERSION} -t single -f github-act ${EXTRA_FLAVOURS} -f github-act-configured
+if [ ${POT_MOUNT_BASE} ]; then
+    SIBLING_DIR=${POT_MOUNT_BASE}/jails/sibling
+else
+    SIBLING_DIR=/opt/pot/jails/sibling
+fi
+
+if [ ! -d $SIBLING_DIR ]; then
+    pot create -p sibling -b ${FREEBSD_VERSION} -t single -f bootstrap
+    pot snap -p sibling
+fi
+
+pot clone -p ${POTNAME} -P sibling -f github-act ${EXTRA_FLAVOURS} -f github-act-configured
 
 echo
 echo Created pot:

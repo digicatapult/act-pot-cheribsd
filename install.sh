@@ -7,10 +7,8 @@ if [ ! -d ${FLAVOURS} ]; then
 	exit 1
 fi
 
-BASENAME="base-"${FREEBSD_VERSION}
-BASEDIR="${POT_MOUNT_BASE}/bases/${BASENAME}/${FREEBSD_VERSION}"
-echo Creating base pot for ${FREEBSD_VERSION}
-if [ ! -e "${BASEDIR}" ]; then
+if [ ! $(pot ls -b | grep -Eo ${FREEBSD_VERSION}) ]; then
+	echo Creating base pot for ${FREEBSD_VERSION}
 	mkdir -p /usr/local/share/freebsd/MANIFESTS/
 	ARCH=$(curl -s \
 		https://download.cheribsd.org/releases/arm64/aarch64c/ | \
@@ -22,22 +20,10 @@ if [ ! -e "${BASEDIR}" ]; then
 
 	pot create-base -r $FREEBSD_VERSION
 
-	echo Adding libraries to the $BASENAME pot
-	for DIR in lib64 lib64cb; do
-		cp -r /usr/"${DIR}" "${BASEDIR}"/usr/ 2>/dev/null
-	done
-
-	pot start -p $BASENAME
-
-	for PKG in pkg64 pkg64c pkg64cb; do
-		echo Bootstrapping $PKG
-		pot exec -p $BASENAME $PKG bootstrap -fy && $PKG update -f
-	done
-
-	pot stop -p $BASENAME
 fi
 echo Installing flavours to $(realpath ${FLAVOURS})
 install -m 644 flavours/github-act flavours/github-act-configured ${FLAVOURS}
+install flavours/bootstrap ${FLAVOURS}
 install flavours/github-act ${FLAVOURS}
 install flavours/github-act.sh ${FLAVOURS}
 install flavours/github-act-configure.sh ${FLAVOURS}
