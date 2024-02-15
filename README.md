@@ -15,6 +15,22 @@ To install under CheriBSD 23.11, for instance:
 POT_MOUNT_BASE=/opt/pot FREEBSD_VERSION=23.11 ./install.sh
 ```
 
+To initialise a runner via GitHub:
+```shell
+POT_MOUNT_BASE=/opt/pot/ \
+FREEBSD_VERSION=23.11 \
+RUNNER_NAME=self-hosted \
+./config.sh --url YOUR_REPOSITORY_URL --token YOUR_TOKEN
+```
+
+To configure healthchecks via `crontab -e`, add the following in your editor of choice:
+```
+* 9 */1 * * /sbin/zpool status -v
+* 12 */1 * * /etc/cron.d/scrub-pool.sh
+* */1 * * * /etc/cron.d/clean-pots.sh
+*/1 * * * * /etc/cron.d/restart-actions.sh
+```
+
 
 Wrapper scripts to run GitHub actions in a jail on FreeBSD
 ----------------------------------------------------------
