@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 set -euo pipefail
 
 # Debug any running pots by performing a basic healthcheck

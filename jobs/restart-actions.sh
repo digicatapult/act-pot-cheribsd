@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 set -euo pipefail
 
 # Restart the host's GitHub Actions service
