@@ -30,7 +30,18 @@ fi
 mkdir -p ${RUNNER_CONFIG_DIRECTORY}
 cd ${RUNNER_CONFIG_DIRECTORY}
 
-pot create -p ${POTNAME} -b ${FREEBSD_VERSION} -t single -f github-act ${EXTRA_FLAVOURS} -f github-act-configured
+if [ ${POT_MOUNT_BASE} ]; then
+    SIBLING_DIR=${POT_MOUNT_BASE}/jails/sibling
+else
+    SIBLING_DIR=/opt/pot/jails/sibling
+fi
+
+if [ ! -d $SIBLING_DIR ]; then
+    pot create -p sibling -b ${FREEBSD_VERSION} -t single -f bootstrap
+    pot snap -p sibling
+fi
+
+pot clone -p ${POTNAME} -P sibling -f github-act ${EXTRA_FLAVOURS} -f github-act-configured
 
 # Save the token in a place where the github-act-configure.sh script can access it
 echo $TOKEN > "${RUNNER_CONFIG_DIRECTORY}/${POTNAME}_token"
