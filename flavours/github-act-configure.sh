@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 # Source the configuration file.
 . /root/github-config
 cat /root/github-config
