@@ -7,20 +7,6 @@ if [ ! -d ${FLAVOURS} ]; then
 	exit 1
 fi
 
-if [ ! $(pot ls -b | grep -Eo ${FREEBSD_VERSION}) ]; then
-	echo Creating base pot for ${FREEBSD_VERSION}
-	mkdir -p /usr/local/share/freebsd/MANIFESTS/
-	ARCH=$(curl -s \
-		https://download.cheribsd.org/releases/arm64/aarch64c/ | \
-		grep -Eo "\w{1,}\.\w{1,}" | sort -u)
-	for RELEASE in $ARCH; do
-		curl -C - "https://download.cheribsd.org/releases/arm64/aarch64c/$RELEASE/ftp/MANIFEST" > \
-		/usr/local/share/freebsd/MANIFESTS/arm64-aarch64c-$RELEASE-RELEASE
-	done
-
-	pot create-base -r $FREEBSD_VERSION
-
-fi
 echo Installing flavours to $(realpath ${FLAVOURS})
 install -m 644 flavours/github-act flavours/github-act-configured ${FLAVOURS}
 install flavours/bootstrap ${FLAVOURS}
