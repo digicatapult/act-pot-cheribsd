@@ -8,7 +8,7 @@ It makes certain assumptions, that `GODEBUG="asyncpreemptoff=1"` is
 necessary to prevent kernel panics, owing to a known bug affecting the
 Go runtime on CheriBSD.
 It also copies the libraries for CheriBSD's various ABIs from the host
-to the release's base pot to ensure that `pkg64` and `pkg64cb` are
+to a sibling pot, later cloned, to ensure that `pkg64` and `pkg64cb` are
 useable on capability-aware systems like Morello.
 To install under CheriBSD 23.11, for instance:
 ```shell
