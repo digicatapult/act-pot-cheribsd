@@ -1,2 +1,5 @@
 copy-in -s /usr/lib64 -d /root/lib64
 copy-in -s /usr/lib64cb -d /root/lib64cb
+set-attribute -A no-tmpfs -V ON
+set-attribute -A nullfs -V ON
+set-attribute -A zfs -V ON

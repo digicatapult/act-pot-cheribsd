@@ -13,8 +13,8 @@ esac
 
 # Install dependencies
 cp -fR /root/lib64 /usr
-rm -R /root/lib64
 cp -fR /root/lib64cb /usr
+rm -R /root/lib64
 rm -R /root/lib64cb
 
 if [ $(which pkg64c) ]; then
