@@ -41,11 +41,11 @@ if [ ! -d $SIBLING_DIR ]; then
     pot snap -p sibling
 fi
 
-pot clone -p ${POTNAME} -P sibling -f github-act ${EXTRA_FLAVOURS} \
-    -f github-act-configured
-
 # Save the token in a place where the github-act-configure.sh script can access it
 echo $TOKEN > "${RUNNER_CONFIG_DIRECTORY}/${POTNAME}_token"
+
+pot clone -p ${POTNAME} -P sibling -f github-act ${EXTRA_FLAVOURS} \
+    -f github-act-configured
 
 echo
 echo Created pot:
