@@ -19,7 +19,7 @@ GITHUB_TOKEN=$(cat "$TOKEN_FILE")
 # Configure the runner
 cd /root/runner
 VERSION=$(freebsd-version -u | sed -r 's/-.*//')
-GODEBUG="asyncpreemptoff=1" /usr/local/bin/github-act-runner configure \
+GODEBUG="asyncpreemptoff=1" /usr/local64/bin/github-act-runner configure \
     --url "https://github.com/${GITHUB_ORG}" \
     --token "${GITHUB_TOKEN}" \
     --name "${POTNAME}" \
