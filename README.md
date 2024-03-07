@@ -28,7 +28,8 @@ To configure healthchecks via `crontab -e`, add the following in your editor of 
 * 9 */1 * * /sbin/zpool status -v
 * 12 */1 * * /etc/cron.d/scrub-pool.sh
 * */1 * * * /etc/cron.d/clean-pots.sh
-*/1 * * * * /etc/cron.d/restart-actions.sh
+*/10 * * * * /etc/cron.d/count-pots.sh
+*/2 * * * * /etc/cron.d/restart-actions.sh
 ```
 
 
