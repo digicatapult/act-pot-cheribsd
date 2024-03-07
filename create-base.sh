@@ -1,6 +1,6 @@
 #!/bin/sh
 set -eo pipefail
-if [ ! "${FREEBSD_VERSION}" ]; then
+if [ ! "${CHERIBSD_BUILD_ID}" ]; then
     mkdir -p /usr/local/share/freebsd/MANIFESTS/
     ARCH=$(curl -s \
         https://download.cheribsd.org/releases/arm64/aarch64c/ | \
@@ -11,13 +11,13 @@ if [ ! "${FREEBSD_VERSION}" ]; then
     done
     echo Finished downloading the most recent CheriBSD manifests
 
-    FREEBSD_VERSION=$(echo $ARCH | awk -F " " '{print $NF}')
+    CHERIBSD_BUILD_ID=$(echo $ARCH | awk -F " " '{print $NF}')
 fi
 
-if [ ! $(pot ls -b | grep -o ${FREEBSD_VERSION}) ]; then
-    echo Creating base pot for $FREEBSD_VERSION
+if [ ! $(pot ls -b | grep -o ${CHERIBSD_BUILD_ID}) ]; then
+    echo Creating base pot for $CHERIBSD_BUILD_ID
 
-    pot create-base -r $FREEBSD_VERSION
+    pot create-base -r $CHERIBSD_BUILD_ID
 else
-    echo Found an existing base pot for CheriBSD $FREEBSD_VERSION
+    echo Found an existing base pot for CheriBSD $CHERIBSD_BUILD_ID
 fi

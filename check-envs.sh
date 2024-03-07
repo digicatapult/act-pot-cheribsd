@@ -1,9 +1,14 @@
-if [ ! "${FREEBSD_VERSION}" ] ; then
-	FREEBSD_VERSION=$(freebsd-version -u | sed -r 's/-.*//')
-	echo FREEBSD_VERSION not set, using ${FREEBSD_VERSION}
+if [ ! "${CHERIBSD_BUILD_ID}" ] ; then
+	ARCH=$(curl -s \
+	https://download.cheribsd.org/releases/arm64/aarch64c/ | \
+		grep -Eo "\w{1,}\.\w{1,}" | sort -u)
+	CHERIBSD_BUILD_ID=$(echo $ARCH | awk -F " " '{print $NF}')
+	echo CHERIBSD_BUILD_ID not set, using ${CHERIBSD_BUILD_ID}
 fi
 if [ ! "${RUNNER_NAME}" ] ; then
-	RUNNER_NAME=$(hostname)-freebsd-${FREEBSD_VERSION}
+	HOST=$(. /etc/os-release; echo $NAME)
+	RANDOM=$(LC_ALL=C tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 8)
+	RUNNER_NAME=$HOST-$CHERIBSD_BUILD_ID-$RANDOM
 	echo RUNNER_NAME not set, using ${RUNNER_NAME}
 fi
 if [ ! "${POT_MOUNT_BASE}" ] ; then

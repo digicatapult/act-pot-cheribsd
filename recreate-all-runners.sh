@@ -3,13 +3,13 @@
 for I in `pwd`/runners/*/act-config.sh ; do
 	if [ -f "$I" ] ; then
 		RUNNER_FLAVOURS=
-		FREEBSD_VERSION=
+		CHERIBSD_BUILD_ID=
 		RUNNER_NAME=
 		POTNAME=
 		. $I
 		echo Recreating ${RUNNER_NAME}
 		export RUNNER_FLAVOURS
-		export FREEBSD_VERSION
+		export CHERIBSD_BUILD_ID
 		export RUNNER_NAME
 		export POTNAME
 		./recreate-runner.sh

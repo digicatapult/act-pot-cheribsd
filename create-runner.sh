@@ -37,7 +37,7 @@ else
 fi
 
 if [ ! -d $SIBLING_DIR ]; then
-    pot create -p sibling -b ${FREEBSD_VERSION} -t single -f bootstrap
+    pot create -p sibling -b ${CHERIBSD_BUILD_ID} -t single -f bootstrap
     pot snap -p sibling
 fi
 

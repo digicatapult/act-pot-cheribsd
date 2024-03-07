@@ -12,13 +12,13 @@ to a sibling pot, later cloned, to ensure that `pkg64` and `pkg64cb` are
 useable on capability-aware systems like Morello.
 To install under CheriBSD 23.11, for instance:
 ```shell
-POT_MOUNT_BASE=/opt/pot FREEBSD_VERSION=23.11 ./install.sh
+POT_MOUNT_BASE=/opt/pot CHERIBSD_BUILD_ID=23.11 ./install.sh
 ```
 
 To initialise a runner via GitHub:
 ```shell
 POT_MOUNT_BASE=/opt/pot/ \
-FREEBSD_VERSION=23.11 \
+CHERIBSD_BUILD_ID=23.11 \
 RUNNER_NAME=self-hosted \
 ./config.sh --url YOUR_REPOSITORY_URL --token YOUR_TOKEN
 ```
@@ -56,8 +56,8 @@ Paste that command into a root terminal in the directory where you have cloned t
 
 Three environment variables affect this command:
 
- - `FREEBSD_VERSION` specifies the version of FreeBSD to use (e.g. 13.1).
-   If not specified this is the version of your host system.
+ - `CHERIBSD_BUILD_ID` specifies the build of CheriBSD to use (e.g. 23.11).
+   If not specified this is the latest build of CheriBSD.
  - `RUNNER_NAME` specifies the name to give to this runner.
    If not specified then this is the {your hostname}-freebsd-{version number}.
  - `RUNNER_FLAVOURS` specifies a space-separated list of flavours that will be applied to the pot.
