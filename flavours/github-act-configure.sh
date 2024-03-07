@@ -18,12 +18,11 @@ GITHUB_TOKEN=$(cat "$TOKEN_FILE")
 
 # Configure the runner
 cd /root/runner
-VERSION=$(freebsd-version -u | sed -r 's/-.*//')
 GODEBUG="asyncpreemptoff=1" /usr/local64/bin/github-act-runner configure \
     --url "https://github.com/${GITHUB_ORG}" \
     --token "${GITHUB_TOKEN}" \
     --name "${POTNAME}" \
-    --labels cheribsd,"cheribsd-${FREEBSD_VERSION}",freebsd,"freebsd-${VERSION}" \
+    --labels cheribsd,"cheribsd-${CHERIBSD_BUILD_ID}" \
     --unattended
 
 echo "GitHub Actions runner configured for ${POTNAME}"

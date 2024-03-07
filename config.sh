@@ -8,6 +8,8 @@ if [ "$1" != '--url' -o "$3" != '--token' ] ; then
 	exit 1
 fi
 
+# Generate a random string for the runner name, if using config.sh without variables
+export RANDOM=$(LC_ALL=C tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 8)
 . ${SCRIPTDIR}/check-envs.sh
 
 mkdir -p ${RUNNER_CONFIG_DIRECTORY}
@@ -25,7 +27,7 @@ echo "GITHUB_TOKEN=$4" >> github.conf
 echo "RUNNER_NAME=${RUNNER_NAME}" >> github.conf
 
 echo "RUNNER_FLAVOURS=${RUNNER_FLAVOURS}" > act-config.sh
-echo "FREEBSD_VERSION=${FREEBSD_VERSION}" >> act-config.sh
+echo "CHERIBSD_BUILD_ID=${CHERIBSD_BUILD_ID}" >> act-config.sh
 echo "RUNNER_NAME=${RUNNER_NAME}" >> act-config.sh
 echo "POTNAME=${POTNAME}" >> act-config.sh
 
