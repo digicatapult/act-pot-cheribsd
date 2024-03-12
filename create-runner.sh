@@ -37,15 +37,15 @@ else
 fi
 
 if [ ! -d $SIBLING_DIR ]; then
-    pot create -p sibling -b ${CHERIBSD_BUILD_ID} -t single -f bootstrap
-    pot snap -p sibling
+    pot create -p sibling -b ${CHERIBSD_BUILD_ID} -t single -f bootstrap -v
+    pot snap -p sibling -v
 fi
 
 # Save the token in a place where the github-act-configure.sh script can access it
 echo $TOKEN > "${RUNNER_CONFIG_DIRECTORY}/${POTNAME}_token"
 
 pot clone -p ${POTNAME} -P sibling -f github-act ${EXTRA_FLAVOURS} \
-    -f github-act-configured
+    -f github-act-configured -v
 
 echo
 echo Created pot:
