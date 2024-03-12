@@ -1,20 +1,19 @@
 #!/bin/sh
 set -eo pipefail
-. /root/.profile
 
-# Ensure GITHUB_PAT and GITHUB_ORG environment variables are set
-if [ -z "$GITHUB_PAT" ] || [ -z "$GITHUB_ORG" ]; then
-    echo "Error: GITHUB_PAT and GITHUB_ORG environment variables must be set."
+# Ensure GITHUB_TOKEN and GITHUB_ORG environment variables are set
+if [ -z "$GITHUB_TOKEN" ] || [ -z "$GITHUB_ORG" ]; then
+    echo "Error: GITHUB_TOKEN and GITHUB_ORG environment variables must be set."
     exit 1
 fi
 
 # Generate a new GitHub Actions runner registration token for the organization
-TOKEN=$(curl -s -X POST -H "Authorization: token $GITHUB_PAT" \
+TOKEN=$(curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
                   -H "Accept: application/vnd.github+json" \
                   "https://api.github.com/orgs/$GITHUB_ORG/actions/runners/registration-token" | grep "token" | cut -d '"' -f 4)
 
 if [ "$TOKEN" = "null" ]; then
-    echo "Failed to generate token. Check if your GITHUB_PAT is correct and has the required permissions."
+    echo "Failed to generate token. Check if your GITHUB_TOKEN is correct and has the required permissions."
     exit 1
 fi
 
