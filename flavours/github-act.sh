@@ -11,22 +11,7 @@ case $( . /etc/os-release; echo $NAME ) in
     ;;
 esac
 
-# Install dependencies
-cp -fR /root/lib64 /usr
-cp -fR /root/lib64cb /usr
-rm -R /root/lib64
-rm -R /root/lib64cb
-
-if [ $(which pkg64c) ]; then
-    for pkg in pkg64 pkg64c pkg64cb; do
-        $pkg -N || $pkg bootstrap -fy
-    done
-else
-    echo "[err] failed to find pkg64c"
-    exit
-fi
-
-pkg64 install -fy git node bash
+pkg64 install -y git node bash
 
 # Define the repository
 REPO_OWNER="ChristopherHX"
