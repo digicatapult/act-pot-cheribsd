@@ -42,7 +42,7 @@ if [ ! -d $SIBLING_DIR ]; then
 fi
 
 # Save the token in a place where the github-act-configure.sh script can access it
-echo $TOKEN > "${RUNNER_CONFIG_DIRECTORY}/${POTNAME}_token"
+echo $TOKEN > token
 
 pot clone -p ${POTNAME} -P sibling -f github-act ${EXTRA_FLAVOURS} \
     -f github-act-configured

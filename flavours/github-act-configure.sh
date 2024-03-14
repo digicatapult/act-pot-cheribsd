@@ -9,12 +9,11 @@ if [ -f "$CONFIG_FILE" ]; then
 fi
 
 # Load the token from the file saved by create-runner.sh
-TOKEN_FILE="${RUNNER_CONFIG_DIRECTORY}/${POTNAME}_token"
-if [ ! -f "$TOKEN_FILE" ]; then
+if [ ! -f "/root/token" ]; then
     echo "Runner token file not found."
     exit 1
 fi
-GITHUB_TOKEN=$(cat "$TOKEN_FILE")
+GITHUB_TOKEN=$(cat /root/token)
 
 # Configure the runner
 cd /root/runner
