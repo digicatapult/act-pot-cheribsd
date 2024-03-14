@@ -15,6 +15,9 @@ if [ ! -f "/root/token" ]; then
 fi
 GITHUB_TOKEN=$(cat /root/token)
 
+ARCH=$(ls /usr/local/share/freebsd/MANIFESTS | \
+    grep -Eo "\w{1,}\.\w{1,}" | sort -u)
+CHERIBSD_BUILD_ID=$(echo ${ARCH} | awk -F " " '{print $NF}')
 # Configure the runner
 cd /root/runner
 GODEBUG="asyncpreemptoff=1" /usr/local64/bin/github-act-runner configure \

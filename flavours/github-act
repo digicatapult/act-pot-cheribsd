@@ -2,6 +2,3 @@ copy-in -s token -d /root/token
 copy-in -s github.conf -d /root/github-config
 set-attribute -A persistent -V NO
 set-attribute -A no-rc-script -V ON
-set-attribute -A no-tmpfs -V ON
-set-attribute -A nullfs -V ON
-set-attribute -A zfs -V ON
