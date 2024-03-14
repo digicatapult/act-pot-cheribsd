@@ -8,21 +8,13 @@ if [ -f "$CONFIG_FILE" ]; then
     cat "$CONFIG_FILE"
 fi
 
-# Load the token from the file saved by create-runner.sh
-TOKEN_FILE="${RUNNER_CONFIG_DIRECTORY}/${POTNAME}_token"
-if [ ! -f "$TOKEN_FILE" ]; then
-    echo "Runner token file not found."
-    exit 1
-fi
-GITHUB_TOKEN=$(cat "$TOKEN_FILE")
-
 ARCH=$(ls /usr/local/share/freebsd/MANIFESTS | \
     grep -Eo "\w{1,}\.\w{1,}" | sort -u)
 CHERIBSD_BUILD_ID=$(echo ${ARCH} | awk -F " " '{print $NF}')
 # Configure the runner
 cd /root/runner
 GODEBUG="asyncpreemptoff=1" /usr/local64/bin/github-act-runner configure \
-    --url "https://github.com/${GITHUB_ORG}" \
+    --url "${GITHUB_URL}" \
     --token "${GITHUB_TOKEN}" \
     --name "${POTNAME}" \
     --labels cheribsd,"cheribsd-${CHERIBSD_BUILD_ID}" \

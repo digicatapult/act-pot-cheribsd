@@ -1,28 +1,43 @@
 CheriBSD
 ========
 
-This repository has commits specific to CheriBSD, to execute
-self-hosted GitHub runners in ephemeral jails via pot, a BSD jail
-manager.
-It makes certain assumptions, that `GODEBUG="asyncpreemptoff=1"` is
-necessary to prevent kernel panics, owing to a known bug affecting the
-Go runtime on CheriBSD.
-It also copies the libraries for CheriBSD's various ABIs from the host
-to a sibling pot, later cloned, to ensure that `pkg64` and `pkg64cb` are
-useable on capability-aware systems like Morello.
-To install under CheriBSD 23.11, for instance:
+This repository has commits specific to CheriBSD, to execute self-hosted GitHub runners in ephemeral jails via pot, a BSD jail manager.
+It makes certain assumptions, that `GODEBUG="asyncpreemptoff=1"` is necessary to prevent kernel panics, owing to a known bug affecting the Go runtime on CheriBSD.
+It also copies the libraries for CheriBSD's various ABIs from the host to a sibling pot, later cloned, to ensure that `pkg64` and `pkg64cb` are useable on capability-aware systems like Morello.
+
+
+Quick start
+-----------
+To install under CheriBSD 23.11:
 ```shell
-POT_MOUNT_BASE=/opt/pot CHERIBSD_BUILD_ID=23.11 ./install.sh
+./install.sh
 ```
 
-To initialise a runner via GitHub:
+To initialise a runner via GitHub, there are several ways to use these scripts.
+
+### Stand-alone
+For the simplest execution:
+```shell
+./config.sh --url {GITHUB_URL} --token {TOKEN}
+```
+
+### Automating with GitHub PATs
+For use with a personal access token against a specific organisation, there is a script available to check the environment for the variables `GITHUB_PAT` and `GITHUB_ORG`:
+```shell
+./get_token.sh
+./config.sh --url {GITHUB_URL} --token $GITHUB_TOKEN
+```
+
+### Finer control
+For fine-grained control over the variables:
 ```shell
 POT_MOUNT_BASE=/opt/pot/ \
 CHERIBSD_BUILD_ID=23.11 \
-RUNNER_NAME=self-hosted \
-./config.sh --url YOUR_REPOSITORY_URL --token YOUR_TOKEN
+RUNNER_NAME={NAME} \
+./config.sh --url {GITHUB_URL} --token {TOKEN}
 ```
 
+### Health checks
 To configure healthchecks via `crontab -e`, add the following in your editor of choice:
 ```
 * 9 */1 * * /sbin/zpool status -v
