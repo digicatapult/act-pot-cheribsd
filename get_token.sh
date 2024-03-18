@@ -20,4 +20,4 @@ fi
 echo "Generated Token: $GITHUB_TOKEN"
 
 # Export the token so that other scripts (e.g. config.sh) can access it
-export GITHUB_TOKEN="$GITHUB_TOKEN"
+export GITHUB_TOKEN
