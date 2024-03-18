@@ -1,5 +1,4 @@
 #!/bin/sh
-set -euo pipefail
 
 # Where necessary, clear the old set of runners and replace them
 
