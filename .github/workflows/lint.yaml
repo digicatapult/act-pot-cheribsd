@@ -14,7 +14,7 @@ jobs:
     - name: Install ShellCheck
       run: sudo apt-get install shellcheck
 
-    - name: Find shell scripts with #!/bin/sh and run ShellCheck
+    - name: Find shell scripts with \#!/bin/sh and run ShellCheck
       run: |
         files=$(find . -type f ! -path '*/\.*' -exec grep -lE '^#!(/usr)?/bin/sh' {} +)
         if [ -n "$files" ]; then
