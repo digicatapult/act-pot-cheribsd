@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# shellcheck disable=SC2034
 # PROVIDE: gh_actions
 # REQUIRE: NETWORKING LOGIN FILESYSTEM
 # BEFORE: securelevel
@@ -22,8 +22,8 @@ gh_actions_running=/var/run/github-runners
 
 gh_actions_start()
 {
-	local POT
 	touch /var/run/github-runners
+	# shellcheck disable=SC2154
 	for RUNNER_NAME in ${gh_actions_pots} ; do
 		export RUNNER_NAME
 		run-actions-runner.sh > /dev/null 2> /dev/null &
@@ -46,7 +46,7 @@ gh_actions_stop()
 					sleep 1
 					# FIXME: This is racy.
 					if [ -f /var/run/github-runners.${RUNNER_NAME} ]; then
-						kill `cat /var/run/github-runners.${RUNNER_NAME}`
+						kill "$(cat "/var/run/github-runners.${RUNNER_NAME}")"
 					fi
 				fi
 			fi
@@ -61,7 +61,7 @@ gh_actions_stop()
 				while [ -f /var/run/github-runners.${RUNNER_NAME} ]; do
 					sleep 1
 					COUNT=$(expr $COUNT + 1)
-					if [ $(expr $COUNT % 10) -eq 0 ] ; then
+					if [ "$(expr $COUNT % 10)" -eq 0 ] ; then
 						echo Waiting for ${RUNNER_NAME} to exit...
 					fi
 				done
@@ -77,11 +77,11 @@ gh_actions_status()
 	for RUNNER_NAME in ${gh_actions_pots} ; do
 		pot info -qr -p ${RUNNER_NAME}-ephemeral > /dev/null 2>&1
 		if [ $? -eq 0 ] ; then
-			echo -n ${RUNNER_NAME} pot running
+			printf "%s" "${RUNNER_NAME} pot running"
 			if [ -f /var/run/github-runners.${RUNNER_NAME} ]; then
-				echo " managed by process $(cat /var/run/github-runners.${RUNNER_NAME})"
+				printf " managed by process %s\n" "$(cat /var/run/github-runners.${RUNNER_NAME})"
 			else
-				echo " but appears to be orphaned"
+				printf " but appears to be orphaned\n"
 			fi
 		fi
 	done

@@ -1,15 +1,17 @@
 #!/bin/sh
-set -eo pipefail
-SCRIPTDIR=$(realpath $(dirname $0))
+set -e
+SCRIPTDIR=$(realpath "$(dirname $0)")
 
-if [ "$1" != '--url' -o "$3" != '--token' ] ; then
+if [ "$1" != '--url' ] || [ "$3" != '--token' ]; then
+	# shellcheck disable=all
 	echo usage ./config.sh --url https://github.com/{account}/{repo} --token {token}
 	echo Copy this command from the GitHub actions runner setup page
 	exit 1
 fi
 
 # Generate a random string for the runner name, if using config.sh without variables
-export RANDOM=$(LC_ALL=C tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 8)
+export RANDOM
+RANDOM="$(LC_ALL=C tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 8)"
 . ${SCRIPTDIR}/check-envs.sh
 
 mkdir -p ${RUNNER_CONFIG_DIRECTORY}
