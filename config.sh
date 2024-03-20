@@ -37,6 +37,4 @@ RUNNER_FLAVOURS="github-act-configure ${RUNNER_FLAVOURS}"
 . ${SCRIPTDIR}/create-runner.sh
 
 # Copy the configuration out of the jail.
-# FIXME: pot does not provide any mechanism for doing this that doesn't involve
-# poking at its internals.  If one is added then we should use it.
-cp ${POT_MOUNT_BASE}/jails/${POTNAME}/m/root/runner/* ${RUNNER_CONFIG_DIRECTORY}
+pot-copy-out -p "${POTNAME}" -s "/root/runner/*" -d "${RUNNER_CONFIG_DIRECTORY}"
