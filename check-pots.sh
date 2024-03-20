@@ -5,7 +5,7 @@ set -eu
 
 check_tree() {
     if [ -e $1 ]; then
-        if [ "$(ls $1 | wc -l)" = 0 ]; then
+        if [ "$(ls $1 | wc -l)" -eq 0 ]; then
             echo "[debug] $1 for $pot is empty"
         fi
     else
