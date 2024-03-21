@@ -13,9 +13,12 @@ if [ ! "${POT_MOUNT_BASE}" ] ; then
 	POT_MOUNT_BASE=/opt/pot
 	echo POT_MOUNT_BASE not set, using ${POT_MOUNT_BASE}
 fi
+CHERIBSD_BUILD_ID=$(echo ${CHERIBSD_BUILD_ID} | sed 's/ /_/g')
+RUNNER_NAME=$(echo ${RUNNER_NAME} | sed 's/ /_/g')
+RUNNER_NAME=$(echo ${RUNNER_NAME} | sed 's/[$*?]//g')
+POT_MOUNT_BASE=$(echo ${POT_MOUNT_BASE} | sed 's/ /_/g')
+POT_MOUNT_BASE=$(echo ${POT_MOUNT_BASE} | sed 's/[$*?]//g')
 # Set the pot name to use underscores in place of dots (the one character pot
 # names are apparently not allowed).
-# FIXME: We shouldn't be allowing anything that isn't allowed in a path
-# component here either.
 POTNAME=$(echo ${RUNNER_NAME} | sed 's/\./_/g')
 RUNNER_CONFIG_DIRECTORY=`pwd`/runners/${POTNAME}
