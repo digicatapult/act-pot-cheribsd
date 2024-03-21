@@ -10,7 +10,7 @@ if [ "$NAME" = "FreeBSD" ]; then
     echo "FreeBSD update completed."
 fi
 
-if [ "$NAME" = "FreeBSD" ] || [ "$NAME" = "CheriBSD" ]; then
+if [ "$NAME" = "CheriBSD" ]; then
     echo "skipped freebsd-update for $NAME"
 fi
 
