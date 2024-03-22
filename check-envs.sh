@@ -13,9 +13,9 @@ if [ ! "${POT_MOUNT_BASE}" ] ; then
 	POT_MOUNT_BASE=/opt/pot
 	echo POT_MOUNT_BASE not set, using ${POT_MOUNT_BASE}
 fi
-CHERIBSD_BUILD_ID=$(echo ${CHERIBSD_BUILD_ID} | sed 's/\s/_/g')
-RUNNER_NAME=$(echo ${RUNNER_NAME} | sed 's/\s/_/g; s/[$*?]//g')
-POT_MOUNT_BASE=$(echo ${POT_MOUNT_BASE} | sed 's/\s/_/g; s/[$*?]//g')
+CHERIBSD_BUILD_ID=$(echo ${CHERIBSD_BUILD_ID} | sed 's/\\s/_/g')
+RUNNER_NAME=$(echo ${RUNNER_NAME} | sed 's/\\s/_/g; s/[$*?]//g')
+POT_MOUNT_BASE=$(echo ${POT_MOUNT_BASE} | sed 's/\\s/_/g; s/[$*?]//g')
 # Set the pot name to use underscores in place of dots (the one character pot
 # names are apparently not allowed).
 POTNAME=$(echo ${RUNNER_NAME} | sed 's/\./_/g')
