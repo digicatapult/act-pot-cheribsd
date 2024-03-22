@@ -39,4 +39,4 @@ RUNNER_FLAVOURS="github-act-configure ${RUNNER_FLAVOURS}"
 . ${SCRIPTDIR}/create-runner.sh
 
 # Copy the configuration out of the jail.
-pot copy-out -p "${POTNAME}" -s "/root/runner/*" -d "${RUNNER_CONFIG_DIRECTORY}"
+pot copy-out -p "${POTNAME}" -s "/root/runner/settings.json" -d "${RUNNER_CONFIG_DIRECTORY}"
