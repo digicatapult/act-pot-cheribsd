@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eo pipefail
+set -e
 if [ ! "${CHERIBSD_BUILD_ID}" ]; then
     mkdir -p /usr/local/share/freebsd/MANIFESTS/
     ARCH=$(curl -s \
@@ -14,7 +14,7 @@ if [ ! "${CHERIBSD_BUILD_ID}" ]; then
     CHERIBSD_BUILD_ID=$(echo $ARCH | awk -F " " '{print $NF}')
 fi
 
-if [ ! $(pot ls -b | grep -o ${CHERIBSD_BUILD_ID}) ]; then
+if [ ! "$(pot ls -b | grep -o "${CHERIBSD_BUILD_ID}")" ]; then
     echo Creating base pot for $CHERIBSD_BUILD_ID
 
     pot create-base -r $CHERIBSD_BUILD_ID

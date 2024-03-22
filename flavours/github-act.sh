@@ -1,15 +1,18 @@
 #!/bin/sh
 export PAGER=/bin/cat
 
+# Source os-release to get the OS name
+. /etc/os-release
+
 # Update to the latest stable release
-case $( . /etc/os-release; echo $NAME ) in
-    FreeBSD)
+if [ "$NAME" = "FreeBSD" ]; then
     freebsd-update --not-running-from-cron fetch install
-    ;&
-    CheriBSD)
-    echo skipped freebsd-update for CheriBSD
-    ;;
-esac
+    echo "FreeBSD update completed."
+fi
+
+if [ "$NAME" = "CheriBSD" ]; then
+    echo "skipped freebsd-update for $NAME"
+fi
 
 pkg64 install -y git node bash
 

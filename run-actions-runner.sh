@@ -1,5 +1,5 @@
 #!/bin/sh
-set -euo pipefail
+set -eu
 if [ -f /var/run/github-runners.${RUNNER_NAME} ]; then
 	echo ${RUNNER_NAME} already running.
 	echo Please delete /var/run/github-runners.${RUNNER_NAME} if the system did not gracefully shut down.
