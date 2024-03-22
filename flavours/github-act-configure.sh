@@ -13,7 +13,7 @@ ARCH=$(curl -s \
     grep -Eo "\w{1,}\.\w{1,}" | sort -u)
 CHERIBSD_BUILD_ID=$(echo ${ARCH} | awk -F " " '{print $NF}')
 # Configure the runner
-cd /root/runner
+cd /root/runner || return 1
 GODEBUG="asyncpreemptoff=1" /usr/local64/bin/github-act-runner configure \
     --url "${GITHUB_URL}" \
     --token "${GITHUB_TOKEN}" \

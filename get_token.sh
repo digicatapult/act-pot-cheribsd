@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eo pipefail
+set -e
 
 # Ensure GITHUB_PAT and GITHUB_ORG environment variables are set
 if [ -z "$GITHUB_PAT" ] || [ -z "$GITHUB_ORG" ]; then

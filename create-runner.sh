@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eo pipefail
+set -e
 
 EXTRA_FLAVOURS=
 if [ "${RUNNER_FLAVOURS}" ] ; then

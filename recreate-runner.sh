@@ -1,6 +1,6 @@
 #!/bin/sh
-set -eo pipefail
-SCRIPTDIR=$(realpath $(dirname $0))
+set -e
+SCRIPTDIR=$(realpath "$(dirname $0)")
 . ${SCRIPTDIR}/check-envs.sh
 
 # We are going to reinject the configuration from a prior config directory,

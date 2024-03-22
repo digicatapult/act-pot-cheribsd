@@ -1,5 +1,5 @@
 #!/bin/sh
-set -euo pipefail
+set -eu
 POT=$(which pot)
 FLAVOURS=$(dirname ${POT})/../etc/pot/flavours
 if [ ! -d ${FLAVOURS} ]; then
@@ -7,7 +7,7 @@ if [ ! -d ${FLAVOURS} ]; then
 	exit 1
 fi
 
-echo Installing flavours to $(realpath ${FLAVOURS})
+echo Installing flavours to "$(realpath ${FLAVOURS})"
 install -m 644 flavours/github-act flavours/github-act-configured ${FLAVOURS}
 install flavours/bootstrap ${FLAVOURS}
 install flavours/github-act ${FLAVOURS}
