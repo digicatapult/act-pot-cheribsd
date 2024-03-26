@@ -53,55 +53,9 @@ pot() {
     *)                      fn='pot_other';;
   esac
   shift 1
-  $fn "$@"
+  if type "$fn" 2>/dev/null | grep -q 'function'; then
+    $fn "$@"
+  else
+    :
+  fi
 }
-
-pot_help() { :; }
-pot_version() { :; }
-pot_config() { :; }
-pot_list() { :; }
-pot_show() { :; }
-pot_info() { :; }
-pot_top() { :; }
-pot_ps() { :; }
-pot_init() { :; }
-pot_de_init() { :; }
-pot_vnet_start() { :; }
-pot_create_base() { :; }
-pot_create_fscomp() { :; }
-pot_create_private_bridge() { :; }
-pot_create() { :; }
-pot_clone() { :; }
-pot_clone_fscomp() { :; }
-pot_rename() { :; }
-pot_destroy() { :; }
-pot_prune() { :; }
-pot_copy_in() { :; }
-pot_copy_out() { :; }
-pot_mount_in() { :; }
-pot_mount_out() { :; }
-pot_add_dep() { :; }
-pot_set_rss() { :; }
-pot_get_rss() { :; }
-pot_set_cmd() { :; }
-pot_set_env() { :; }
-pot_set_hosts() { :; }
-pot_set_hook() { :; }
-pot_set_attribute() { :; }
-pot_get_attribute() { :; }
-pot_export_ports() { :; }
-pot_start() { :; }
-pot_stop() { :; }
-pot_term() { :; }
-pot_run() { :; }
-pot_snapshot() { :; }
-pot_revert() { :; }
-pot_purge_snapshots() { :; }
-pot_export() { :; }
-pot_import() { :; }
-pot_prepare() { :; }
-pot_update_config() { :; }
-pot_last_run_stats() { :; }
-pot_signal() { :; }
-pot_exec() { :; }
-pot_other() { :; }

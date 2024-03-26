@@ -55,7 +55,7 @@ This project uses [`shellspec`](https://github.com/shellspec/shellspec) as a tes
 
 Tests are defined in the `spec` directory, and are all files matching the pattern `<suite_name>_spec.sh`. Mocks, custom matchers and other fixtures can be defined in the `spec/support` directory.
 
-The `pot` mock has already been defined and is imported into all tests. By default, all `pot` subcommands return truthy with no side effects, but these can be overloaded on a per-subcommand basis, as each subcommand has its own stub function. See [here](spec/simple_spec.sh#L47) for an example of overloading the `pot exec` subcommand, and [here](spec/support/pot_mock.sh#L59) for a list of all subcommand stubs that can be overloaded.
+The `pot` mock has already been defined and is imported into all tests. By default, all `pot` subcommands return truthy with no side effects, but these can be overloaded on a per-subcommand basis, as each subcommand has its own stub function. See [here](spec/simple_spec.sh#L47) for an example of overloading the `pot exec` subcommand, and [here](spec/support/pot_mock.sh#L5) for a list of all subcommand stubs that can be overloaded.
 
 Wrapper scripts to run GitHub actions in a jail on FreeBSD
 ----------------------------------------------------------
