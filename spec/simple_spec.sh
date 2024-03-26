@@ -52,7 +52,7 @@ Describe 'check-pots.sh'
       The output should include 'sshd is disabled on'
     End
 
-    It 'Should emit a warning if sshd is disabled'
+    It 'Should emit a warning if pkg binaries cannot be found'
       check_tree() { :; }
       pot_exec() {
         case $3 in
