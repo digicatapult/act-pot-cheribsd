@@ -47,6 +47,15 @@ To configure healthchecks via `crontab -e`, add the following in your editor of 
 */2 * * * * /etc/cron.d/restart-actions.sh
 ```
 
+Development
+-----------
+
+### Testing
+This project uses [`shellspec`](https://github.com/shellspec/shellspec) as a test framework. To run tests locally, `shellspec` must first be installed on the local system according to the `shellspec` [installation guide](https://github.com/shellspec/shellspec?tab=readme-ov-file#installation).
+
+Tests are defined in the `spec` directory, and are all files matching the pattern `<suite_name>_spec.sh`. Mocks, custom matchers and other fixtures can be defined in the `spec/support` directory.
+
+The `pot` mock has already been defined and is imported into all tests. By default, all `pot` subcommands return truthy with no side effects, but these can be overloaded on a per-subcommand basis, as each subcommand has its own stub function. See [here](spec/simple_spec.sh#L47) for an example of overloading the `pot exec` subcommand, and [here](spec/support/pot_mock.sh#L5) for a list of all subcommand stubs that can be overloaded.
 
 Wrapper scripts to run GitHub actions in a jail on FreeBSD
 ----------------------------------------------------------

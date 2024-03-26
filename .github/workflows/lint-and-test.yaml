@@ -1,4 +1,4 @@
-name: lint
+name: lint-and-test
 
 on: [push]
 
@@ -22,3 +22,22 @@ jobs:
         else
           echo "No shell scripts with #!/bin/sh shebang found."
         fi
+
+  test:
+    name: Run shellspec
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install shellspec
+      run: |
+        cd ~
+        wget https://github.com/shellspec/shellspec/archive/0.28.1.tar.gz
+        tar xzvf 0.28.1.tar.gz
+        mkdir ~/.local/bin
+        ln -s ~/shellspec-0.28.1/bin/shellspec ~/.local/bin/
+
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Run shellspec
+      run: shellspec
