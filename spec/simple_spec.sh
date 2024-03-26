@@ -1,7 +1,6 @@
 #shellcheck shell=bash
 
 Describe 'check-pots.sh'
-  pot() { return 0; }
   Include ./check-pots.sh
   prepare() { pot='test'; }
   Before 'prepare'
@@ -36,6 +35,36 @@ Describe 'check-pots.sh'
       When call check_tree 'some_tree'
       The output should be blank
       rm -fr $tree_name
+    End
+  End
+
+  Describe 'check_pot()'
+    It 'Should emit a warning if sshd is disabled'
+      check_tree() { :; }
+      pot_exec() {
+        case $3 in
+          sysrc) echo 'NO';;
+          which) echo '/usr/sbin/pkg64';;
+        esac
+      }
+      When call check_pot
+      The lines of output should equal 1
+      The output should include 'sshd is disabled on'
+    End
+
+    It 'Should emit a warning if sshd is disabled'
+      check_tree() { :; }
+      pot_exec() {
+        case $3 in
+          sysrc) echo '';;
+          which) echo '';;
+        esac
+      }
+      When call check_pot
+      The lines of output should equal 3
+      The line 1 of output should include "pkg64 on $pot was not found"
+      The line 2 of output should include "pkg64c on $pot was not found"
+      The line 3 of output should include "pk64cb on $pot was not found"
     End
   End
 End
