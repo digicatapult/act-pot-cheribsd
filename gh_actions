@@ -21,6 +21,7 @@ status_cmd="${name}_status"
 load_rc_config $name
 
 gh_actions_running=/var/run/github-runners
+gh_actions_sleep="${gh_actions_sleep:-1}"
 
 gh_actions_start()
 {
@@ -39,18 +40,16 @@ gh_actions_stop()
 		pot info -qr -p ${RUNNER_NAME}-ephemeral > /dev/null 2>&1
 		if [ $? -eq 0 ] ; then
 			if [ -f /var/run/github-runners.${RUNNER_NAME} ]; then
-				# Kill the runner if it isn't in the middle of a job.  The
-				# script will then gracefully terminate.
-				echo 'pkill -INT github-act-runner' | pot term -p ${RUNNER_NAME}-ephemeral >/dev/null 2>/dev/null
-				# If force is specified, wait a second for the runner to exit
-				# and destroy it immediately if it doesn't.
+				# If force is specified, stop the process immediately.
 				if [ -n "${rc_force}" ]; then
-					sleep 1
-					# FIXME: This is racy.
-					if [ -f /var/run/github-runners.${RUNNER_NAME} ]; then
-						kill "$(cat "/var/run/github-runners.${RUNNER_NAME}")"
-					fi
+					sleep ${gh_actions_sleep}
+					kill "$(cat "/var/run/github-runners.${RUNNER_NAME}")"
 				fi
+
+				# Kill the runner if it isn't in the middle of a job.
+                                # The script will then gracefully terminate.
+				echo 'pkill -INT github-act-runner' | pot term -p ${RUNNER_NAME}-ephemeral >/dev/null 2>/dev/null
+				echo Waiting for ${RUNNER_NAME}-ephemeral to stop gracefully.
 			fi
 		fi
 	done
