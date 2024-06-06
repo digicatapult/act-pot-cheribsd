@@ -24,7 +24,8 @@ REPO_NAME="github-act-runner"
 TAGS=$(curl -s "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/tags" | grep '"name":' | cut -d '"' -f 4)
 
 # Filter and sort versions, assuming they're in the form of 'vX.Y.Z' or 'X.Y.Z'
-HIGHEST_VERSION=$(echo "$TAGS" | sed 's/^v//' | sort -V | tail -n 1)
+# HIGHEST_VERSION=$(echo "$TAGS" | sed 's/^v//' | sort -V | tail -n 1)
+HIGHEST_VERSION=0.6.10
 
 # Construct the download URL
 DOWNLOAD_URL="https://github.com/$REPO_OWNER/$REPO_NAME/releases/download/v$HIGHEST_VERSION/binary-freebsd-arm64.tar.gz"
