@@ -25,7 +25,7 @@ if [ ! -d $SIBLING_DIR ]; then
     pot exec -p sibling cp -R /root/lib64cb /usr
     pot exec -p sibling rm -rdf /root/lib64
     pot exec -p sibling rm -rdf /root/lib64cb
-    pot exec -p sibling pkg64 install -y bash curl git node readline
+    pot exec -p sibling pkg64 install -y bash curl git llvm-base node readline
     pot stop -p sibling
     pot snap -p sibling
 fi
